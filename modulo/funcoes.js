@@ -97,3 +97,12 @@ const getChats = function (/*Usuário,*/ /*Contato*/) { }
 
 // Retorna mensagens com um filtro usando uma palavra chave
 const searchWithKeyWord = function (/*Palavra-chave*/) { }
+
+module.exports = {
+    getAllData,
+    getUserProfile,
+    getContactList,
+    getUserMessages,
+    getChats,
+    searchWithKeyWord
+}
