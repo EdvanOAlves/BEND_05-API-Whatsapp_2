@@ -24,7 +24,26 @@ const MESSAGE_ERRO = {
 const dados = require('./contatos.js')
 
 // Retorna tudo de todos, Mark Zuckerberg quem pediu
-const getAllData = function (){}
+const getAllData = function (){
+    let message = {
+        status: true,
+        status_code: 200,
+        development: 'Edvan Alves de Oliveira',
+        users:[]
+    }
+
+    dados.contatos['whats-users'].forEach(function (usuario){
+        message.users.push(usuario);
+    })
+
+    if (message.users.length){
+        return message;
+    }
+    else
+        return MESSAGE_ERRO;
+}
+
+console.log(getAllData());
 
 // Retorna dados do usuário
 const getUserProfile = function(/*Usuário*/){}
