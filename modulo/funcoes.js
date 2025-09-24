@@ -82,12 +82,37 @@ const getUserProfile = function (phoneNumber) {
         return message  // 200 deu tudo certo
     else
         return MESSAGE_ERRO // 500 Alguma outra coisa deu errado
-        //Desse jeito acho que nunca dá esse, só 404
+        //Desse jeito acho que nunca dá erro 500, só 404
 
 }
 
 // Retorna dados dos contatos associados com um usuário
-const getContactList = function (/*Usuário*/) { }
+const getContactList = function (phoneNumber) { 
+    let message = {
+        status: true,
+        status_code: 200,
+        development: 'Edvan Alves de Oliveira',
+        contact_list: []
+    }
+    const user = getUserWithNumber(phoneNumber);
+    user.contacts.forEach(function (item){ //item é o contato encontrado na lista
+        let contato = {};
+        contato.number;
+        contato.name = item.name;
+        contato.description = item.description;
+        contato.image = item.image;
+        //Nickname é um campo só de profile e não de contatos?
+        message.contact_list.push(contato);
+    })
+    if (message.contact_list.length)
+        return message  // 200 deu tudo certo
+    else
+        return MESSAGE_ERRO // 500 Alguma outra coisa deu errado
+
+
+}
+
+console.log(getContactList("11987876567"))
 
 // Retorna todas as conversas de um usuário
 const getUserMessages = function (/*Usuário*/) { }
