@@ -1,7 +1,7 @@
 /* *********************************************************************
 * Objetivo: endPoints referente a API de estados e cidades
 * Data: 15/09/2025
-* Autor: Edvan
+* Autor: Edvan Alves
 * Versão: 1.0.0
 *
 * Observações: Instalação do Express, Cors, Body-Parser
