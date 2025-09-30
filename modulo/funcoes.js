@@ -57,10 +57,10 @@ const getUserWithNumber = function (phoneNumber) {
 }
 
 // Retorna um contato de um usuário, utilizando do número desse usuário e o número desse contato, função reutilizável
-const getContactWithNumber = function(userNumber, contactNumber){
+const getContactWithNumber = function (userNumber, contactNumber) {
     const user = getUserWithNumber(userNumber);
     let contato;
-    user.contacts.forEach(function(item){
+    user.contacts.forEach(function (item) {
         if (item.number == contactNumber)
             contato = item
     })
@@ -183,13 +183,13 @@ const getChatMessages = function (usuarioNumber, contatoNumber) {
     const user = getUserWithNumber(usuarioNumber);  //Buscando usuário
     if (!user)
         return MESSAGE_NOT_FOUND; //404, caso não tenha encontrado o usuário
-    
+
     // Coletando dados do usuário
     message.user_name = user.account;
     message.user_number = user.number;
     message.user_nickname = user.nickname;
     message.user_image = user['profile-image'];
-    
+
     const contato = getContactWithNumber(usuarioNumber, contatoNumber); //Buscando contato
     if (!contato)
         return MESSAGE_NOT_FOUND; //404, caso não tenha encontrado o contato
@@ -204,12 +204,52 @@ const getChatMessages = function (usuarioNumber, contatoNumber) {
         return message  // 200 deu tudo certo
     else
         return MESSAGE_ERRO // 500 Alguma outra coisa deu errado
- }
+}
 
- console.log(getChatMessages("11987876567", "26999999963"))
+// Retorna mensagens com um contato específico que contém uma palavra chave
+const searchWithKeyWord = function (usuarioNumber, contatoNumber, keyWord) {
+    let message = { //estrutura da mensagem
+        status: true,
+        status_code: 200,
+        development: 'Edvan Alves de Oliveira',
+        user_name: undefined,
+        user_number: undefined,
+        user_nickname: undefined,
+        user_image: undefined,
+        contact_name: undefined,
+        contact_number: undefined,
+        contact_image: undefined,
+        filtered_messages: []
+    }
 
-// Retorna mensagens com um filtro usando uma palavra chave
-const searchWithKeyWord = function (/*Palavra-chave*/) { }
+    const user = getUserWithNumber(usuarioNumber);  //Buscando usuário
+    if (!user)
+        return MESSAGE_NOT_FOUND; //404, caso não tenha encontrado o usuário
+
+    // Coletando dados do usuário
+    message.user_name = user.account;
+    message.user_number = user.number;
+    message.user_nickname = user.nickname;
+    message.user_image = user['profile-image'];
+
+    const contato = getContactWithNumber(usuarioNumber, contatoNumber); //Buscando contato
+    if (!contato)
+        return MESSAGE_NOT_FOUND; //404, caso não tenha encontrado o contato
+    // Coletando dados do contato
+    message.contact_name = contato.name;
+    message.contact_number = contato.number;
+    message.contact_image = contato.image;
+
+    //Filtrando mensagens correspondentes a palavra chave
+    message.filtered_messages = contato.messages.filter(message => message.content.includes(keyWord))
+
+    if (message.filtered_messages)
+        return message;  // 200 deu tudo certo
+    else
+        return MESSAGE_ERRO; // 500 Alguma outra coisa deu errado
+}
+
+
 
 module.exports = {
     getAllData,
