@@ -96,13 +96,13 @@ const getContactList = function (phoneNumber) {
     }
     const user = getUserWithNumber(phoneNumber);
 
-    if (!user){
+    if (!user) {
         return MESSAGE_NOT_FOUND; //404, caso não tenha encontrado o usuário
     }
 
     user.contacts.forEach(function (item) { //item é o contato encontrado na lista
         let contato = {};
-        contato.number;
+        contato.number = item.number;
         contato.name = item.name;
         contato.description = item.description;
         contato.image = item.image;
@@ -117,8 +117,61 @@ const getContactList = function (phoneNumber) {
 
 // Retorna todas as conversas de um usuário
 const getUserMessages = function (phoneNumber) {
+    let message = {
+        status: true,
+        status_code: 200,
+        development: 'Edvan Alves de Oliveira',
+        user_name: undefined,
+        userChatMessages: []
+        /*
+        sender
+        receiver
+        content
+        time
+        */
+    }
 
+    const user = getUserWithNumber(phoneNumber); //Buscando usuário com o numero
+    if (!user)
+        return MESSAGE_NOT_FOUND;   //404 caso não tenha encontrado o usuário
+
+    message.user_name = user.account;
+
+    user.contacts.forEach(function (item_contact) {
+        item_contact.messages.forEach(function (item_message) {
+            // Estrutura para cada mensagem
+            let txt_message = {
+                sender: undefined,
+                receiver: undefined,
+                content: undefined,
+                time: undefined
+            }
+            // Coletando o remetente
+            txt_message.sender = item_message.sender;
+
+            // Coletando o destinatário
+            if (txt_message.sender == "me") {                // Caso seja uma mensagem do usuário
+                txt_message.receiver = item_contact.name;
+                txt_message.sender = message.user_name; //trocando o "me" pelo nome do usuário
+            }
+            else                                            // Caso seja uma mensagem do contato
+                txt_message.receiver = user.name
+
+            txt_message.content = item_message.content;
+            txt_message.time = item_message.time;
+
+            message.userChatMessages.push(txt_message);
+        })
+    })
+
+    if (message.userChatMessages.length)
+        return message  // 200 deu tudo certo
+    else
+        return MESSAGE_ERRO // 500 Alguma outra coisa deu errado
 }
+
+console.log(getUserMessages("11987876567"));
+
 
 // Retorna todas as mensagens de um usuário com um contato
 const getChats = function (/*Usuário,*/ /*Contato*/) { }
