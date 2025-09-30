@@ -51,7 +51,7 @@ const getAllData = function () {
 }
 
 //Retorna um usuário com o número de telefone, função reutilizável
-const getUserWithNumber = function(phoneNumber){
+const getUserWithNumber = function (phoneNumber) {
     const user = users.find(usuario => usuario.number == phoneNumber);
     return user;
 }
@@ -66,7 +66,7 @@ const getUserProfile = function (phoneNumber) {
     }
 
     const user = getUserWithNumber(phoneNumber);
-    if (user){
+    if (user) {
         message.user_profile.id = user.id;
         message.user_profile.phone_number = user.number;
         message.user_profile.name = user.account;
@@ -75,19 +75,19 @@ const getUserProfile = function (phoneNumber) {
         message.user_profile.termination_date = user['created-since'].end;
         message.user_profile.profile_image = user['profile-image'];
         message.user_profile.background = user.background;
-    }else
+    } else
         return MESSAGE_NOT_FOUND;   // 404, Caso não tenha sido encontrado aquele número
 
     if (message.user_profile)
         return message  // 200 deu tudo certo
     else
         return MESSAGE_ERRO // 500 Alguma outra coisa deu errado
-        //Desse jeito acho que nunca dá erro 500, só 404
+    //Desse jeito acho que nunca dá erro 500, só 404
 
 }
 
 // Retorna dados dos contatos associados com um usuário
-const getContactList = function (phoneNumber) { 
+const getContactList = function (phoneNumber) {
     let message = {
         status: true,
         status_code: 200,
@@ -95,7 +95,12 @@ const getContactList = function (phoneNumber) {
         contact_list: []
     }
     const user = getUserWithNumber(phoneNumber);
-    user.contacts.forEach(function (item){ //item é o contato encontrado na lista
+
+    if (!user){
+        return MESSAGE_NOT_FOUND; //404, caso não tenha encontrado o usuário
+    }
+
+    user.contacts.forEach(function (item) { //item é o contato encontrado na lista
         let contato = {};
         contato.number;
         contato.name = item.name;
@@ -108,14 +113,12 @@ const getContactList = function (phoneNumber) {
         return message  // 200 deu tudo certo
     else
         return MESSAGE_ERRO // 500 Alguma outra coisa deu errado
-
-
 }
 
-console.log(getContactList("11987876567"))
-
 // Retorna todas as conversas de um usuário
-const getUserMessages = function (/*Usuário*/) { }
+const getUserMessages = function (phoneNumber) {
+
+}
 
 // Retorna todas as mensagens de um usuário com um contato
 const getChats = function (/*Usuário,*/ /*Contato*/) { }
