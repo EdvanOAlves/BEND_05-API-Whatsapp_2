@@ -122,13 +122,10 @@ const getUserMessages = function (phoneNumber) {
         status_code: 200,
         development: 'Edvan Alves de Oliveira',
         user_name: undefined,
-        userChatMessages: []
-        /*
-        sender
-        receiver
-        content
-        time
-        */
+        user_number: undefined,
+        user_nickname: undefined,
+        user_image: undefined,
+        contact_message_log: []
     }
 
     const user = getUserWithNumber(phoneNumber); //Buscando usuário com o numero
@@ -136,35 +133,16 @@ const getUserMessages = function (phoneNumber) {
         return MESSAGE_NOT_FOUND;   //404 caso não tenha encontrado o usuário
 
     message.user_name = user.account;
+    message.user_number = user.number;
+    message.user_nickname = user.nickname;
+    message.user_image = user.profile_image;
 
-    user.contacts.forEach(function (item_contact) {
-        item_contact.messages.forEach(function (item_message) {
-            // Estrutura para cada mensagem
-            let txt_message = {
-                sender: undefined,
-                receiver: undefined,
-                content: undefined,
-                time: undefined
-            }
-            // Coletando o remetente
-            txt_message.sender = item_message.sender;
 
-            // Coletando o destinatário
-            if (txt_message.sender == "me") {                // Caso seja uma mensagem do usuário
-                txt_message.receiver = item_contact.name;
-                txt_message.sender = message.user_name; //trocando o "me" pelo nome do usuário
-            }
-            else                                            // Caso seja uma mensagem do contato
-                txt_message.receiver = user.name
-
-            txt_message.content = item_message.content;
-            txt_message.time = item_message.time;
-
-            message.userChatMessages.push(txt_message);
-        })
+    user.contacts.forEach(function (item) {
+        message.contact_message_log.push(item)
     })
 
-    if (message.userChatMessages.length)
+    if (message.contact_message_log.length)
         return message  // 200 deu tudo certo
     else
         return MESSAGE_ERRO // 500 Alguma outra coisa deu errado
