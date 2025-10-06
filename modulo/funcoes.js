@@ -17,13 +17,13 @@
 const MESSAGE_ERRO = {
     status: false,
     status_code: 500,
-    development: 'Edvan Alves de Oliveira'
+    development: 'Edvan Alves'
 };
 
 const MESSAGE_NOT_FOUND = {
     status: false,
     status_code: 404,
-    development: 'Edvan Alves de Oliveira'
+    development: 'Edvan Alves'
 }
 
 //Importando dados
@@ -35,7 +35,7 @@ const getAllData = function () {
     let message = {
         status: true,
         status_code: 200,
-        development: 'Edvan Alves de Oliveira',
+        development: 'Edvan Alves',
         users: []
     }
 
@@ -77,7 +77,7 @@ const getUserProfile = function (phoneNumber) {
     let message = {
         status: true,
         status_code: 200,
-        development: 'Edvan Alves de Oliveira',
+        development: 'Edvan Alves',
         user_profile: {}
     }
 
@@ -107,7 +107,7 @@ const getContactList = function (phoneNumber) {
     let message = {
         status: true,
         status_code: 200,
-        development: 'Edvan Alves de Oliveira',
+        development: 'Edvan Alves',
         contact_list: []
     }
     const user = getUserWithNumber(phoneNumber);
@@ -136,7 +136,7 @@ const getUserMessages = function (phoneNumber) {
     let message = {
         status: true,
         status_code: 200,
-        development: 'Edvan Alves de Oliveira',
+        development: 'Edvan Alves',
         user_name: undefined,
         user_number: undefined,
         user_nickname: undefined,
@@ -170,7 +170,7 @@ const getChatMessages = function (usuarioNumber, contatoNumber) {
     let message = { //estrutura da mensagem
         status: true,
         status_code: 200,
-        development: 'Edvan Alves de Oliveira',
+        development: 'Edvan Alves',
         user_name: undefined,
         user_number: undefined,
         user_nickname: undefined,
@@ -211,7 +211,7 @@ const searchWithKeyWord = function (usuarioNumber, contatoNumber, keyWord) {
     let message = { //estrutura da mensagem
         status: true,
         status_code: 200,
-        development: 'Edvan Alves de Oliveira',
+        development: 'Edvan Alves',
         user_name: undefined,
         user_number: undefined,
         user_nickname: undefined,
