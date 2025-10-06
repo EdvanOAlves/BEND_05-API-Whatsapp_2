@@ -92,8 +92,8 @@ app.get('/v1/whatsapp/contatos/:number', function (request, response) {
     response.json(contactList);
 })
 
-//4- Listar todas as mensagens de um contato
-app.get('/v1/whatsapp/messages/:number', function (request, response) {
+//4- Listar todas as mensagens de um usuário
+app.get('/v1/whatsapp/messages/by-number/:number', function (request, response) {
     let userMessages = dados.getUserMessages(request.params.number);
 
     //Retorna o statusCode
@@ -103,8 +103,8 @@ app.get('/v1/whatsapp/messages/:number', function (request, response) {
     response.json(userMessages);
 })
 
-//5- Listar uma conversa de um usuário com um contato (PRECISA DE QUERY)
-app.get('/v1/whatsapp/messages/chat-messages', function (request, response){
+//5- Listar uma conversa de um usuário com um contato (Exemplo de Query)
+app.get('/v1/whatsapp/messages/by-chat', function (request, response){
     let userNumber = request.query.userNumber;
     let contactNumber = request.query.contactNumber;
 
@@ -120,7 +120,7 @@ app.get('/v1/whatsapp/messages/chat-messages', function (request, response){
 
 
 //6- Busca de mensagens com um contato utilizando filtro
-app.get('/v1/whatsapp/messages/search-by-keyword', function(request, response){
+app.get('/v1/whatsapp/messages/search', function(request, response){
     let userNumber = request.query.userNumber;
     let contactNumber = request.query.contactNumber;
     let keyWord = request.query.keyWord
