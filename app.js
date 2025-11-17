@@ -44,8 +44,8 @@ const app = express();
 
 //Configuração de permissões
 app.use((request, response, next) => {
-    response.header('Access-Controll-Allow-Origin', '*'); //Servidor de origem da API, pelo '*' é declarado que é acesso público
-    response.header('Access-Controll-Allow-Methods', 'GET'); //Verbos permitidos na API, se for colocar o Post ficaria 'GET, POST'
+    response.header('Access-Control-Allow-Origin', '*'); //Servidor de origem da API, pelo '*' é declarado que é acesso público
+    response.header('Access-Control-Allow-Methods', 'GET'); //Verbos permitidos na API, se for colocar o Post ficaria 'GET, POST'
 
     //Carrega as configurações no CORS da API
     app.use(cors());
